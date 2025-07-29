@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <!-- Google Maps API -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=geometry,places&callback=initMap"></script>
 </head>
 <body>
     <!-- Navigation Header -->
@@ -178,29 +180,87 @@
                 </div>
 
                 <!-- Right Side - Map -->
-                <div class="map-container">
-                    <div class="map-view" id="mapView">
-                        <!-- Map Background -->
-                        <div class="map-bg">
-                            <div class="map-overlay">
-                                <div class="location-pin pickup-pin" style="top: 60%; left: 30%;">
-                                    <div class="pin-icon">📍</div>
-                                    <div class="pin-label" data-en="Pickup" data-ar="الانطلاق">Pickup</div>
+                <div class="lg:col-span-2">
+                    <div class="map-container h-[600px] relative overflow-hidden rounded-xl shadow-lg">
+                        <!-- Google Maps Container -->
+                        <div id="googleMap" class="w-full h-full"></div>
+                        
+                        <!-- Map Overlay UI -->
+                        <div class="map-overlay-ui">
+                            <!-- Ride Info Card -->
+                            <div class="ride-info-card" id="rideInfoCard">
+                                <div class="ride-info-header">
+                                    <div class="driver-avatar-small">
+                                        <img src="https://images.pexels.com/photos/1212984/pexels-photo-1212984.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&dpr=1" alt="Driver" class="driver-photo-small">
+                                        <div class="driver-status online"></div>
+                                    </div>
+                                    <div class="ride-info-details">
+                                        <h4 class="driver-name-small">Ahmed Al-Rashid</h4>
+                                        <p class="car-info-small">Toyota Camry • ABC 123</p>
+                                    </div>
+                                    <div class="eta-display">
+                                        <span class="eta-time-large" id="etaDisplay">5 min</span>
+                                        <span class="eta-label" data-en="away" data-ar="بعيد">away</span>
+                                    </div>
                                 </div>
-                                <div class="location-pin destination-pin" style="top: 40%; left: 70%;">
-                                    <div class="pin-icon">🎯</div>
-                                    <div class="pin-label" data-en="Destination" data-ar="الوجهة">Destination</div>
+                                <div class="ride-progress-mini">
+                                    <div class="progress-bar-mini">
+                                        <div class="progress-fill-mini" id="progressFillMini"></div>
+                                    </div>
+                                    <div class="progress-text">
+                                        <span id="distanceRemaining">2.3 km remaining</span>
+                                    </div>
                                 </div>
-                                <div class="route-line"></div>
-                                <div class="driver-car" id="driverCar" style="top: 55%; left: 25%;">🚗</div>
+                            </div>
+                            
+                            <!-- Map Controls -->
+                            <div class="map-controls-enhanced">
+                                <button class="map-control-btn" id="zoomInBtn" title="Zoom In">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                </button>
+                                <button class="map-control-btn" id="zoomOutBtn" title="Zoom Out">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                </button>
+                                <button class="map-control-btn" id="centerMapBtn" title="Center on Route">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+                                </button>
+                                <button class="map-control-btn" id="trafficToggleBtn" title="Toggle Traffic">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                        <path d="M2 17l10 5 10-5"></path>
+                                        <path d="M2 12l10 5 10-5"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <!-- Route Summary -->
+                            <div class="route-summary" id="routeSummary">
+                                <div class="route-summary-content">
+                                    <div class="route-info">
+                                        <span class="route-distance" id="routeDistance">8.5 km</span>
+                                        <span class="route-duration" id="routeDuration">15 min</span>
+                                    </div>
+                                    <div class="route-traffic" id="routeTraffic">
+                                        <span class="traffic-status moderate">Moderate traffic</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         
-                        <!-- Map Controls -->
-                        <div class="map-controls">
-                            <button class="map-control zoom-in">+</button>
-                            <button class="map-control zoom-out">−</button>
-                            <button class="map-control my-location">📍</button>
+                        <!-- Loading Overlay -->
+                        <div class="map-loading-overlay" id="mapLoadingOverlay">
+                            <div class="map-loading-spinner">
+                                <div class="spinner-ring"></div>
+                                <p class="loading-text" data-en="Loading map..." data-ar="جاري تحميل الخريطة...">Loading map...</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -439,6 +499,7 @@
 
     <!-- Scripts -->
     <script src="language.js"></script>
-    <script src="animations.js"></script>
-    <script src="map.js"></script>
+    <script src="enhanced-map.js"></script>
+    <script src="real-time-tracking.js"></script>
+    <script src="map-animations.js"></script>
     <script src="script.js"></script>

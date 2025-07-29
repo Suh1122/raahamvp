@@ -266,6 +266,40 @@ class RaahaApp {
         if (salikItem) {
             salikItem.style.display = salikFare > 0 ? 'flex' : 'none';
         }
+        
+        // Update map if available
+        if (window.enhancedMapManager) {
+            window.enhancedMapManager.updateRouteFromLocations(this.pickupLocation, this.destinationLocation);
+        }
+    }
+    
+    // New method to update pricing from actual distance
+    updatePricingFromDistance(actualDistance) {
+        const baseRates = {
+            economy: 2.5,
+            family: 3.0,
+            business: 4.0
+        };
+        
+        const baseFares = {
+            economy: 10,
+            family: 15,
+            business: 20
+        };
+        
+        const baseFare = baseFares[this.selectedVehicle];
+        const distanceFare = actualDistance * baseRates[this.selectedVehicle];
+        const salikFare = actualDistance > 10 ? 4 : 0;
+        const subtotal = baseFare + distanceFare + salikFare;
+        const vatAmount = subtotal * 0.05;
+        const total = subtotal + vatAmount;
+        
+        // Update DOM elements
+        this.updateElement('baseFare', baseFare.toFixed(2));
+        this.updateElement('tripDistance', actualDistance.toFixed(1));
+        this.updateElement('salikFare', salikFare.toFixed(2));
+        this.updateElement('vatAmount', vatAmount.toFixed(2));
+        this.updateElement('totalFare', total.toFixed(2));
     }
     
     updateElement(id, value) {
@@ -300,6 +334,18 @@ class RaahaApp {
             // Trigger car flying animation
             await this.animateCarToMap();
             
+            // Dispatch ride booked event
+            const rideBookedEvent = new CustomEvent('rideBooked', {
+                detail: {
+                    rideId: 'RIDE_' + Date.now(),
+                    driverId: 'DRIVER_001',
+                    pickup: this.pickupLocation,
+                    destination: this.destinationLocation,
+                    vehicle: this.selectedVehicle
+                }
+            });
+            document.dispatchEvent(rideBookedEvent);
+            
             // Switch to tracking view
             this.showTrackingView();
             
@@ -313,29 +359,27 @@ class RaahaApp {
     }
     
     async animateCarToMap() {
-        const car3D = document.getElementById('car3D');
-        const mapView = document.getElementById('mapView');
-        const driverCar = document.getElementById('driverCar');
-        
-        if (car3D && mapView && driverCar) {
-            // Get positions
-            const carRect = car3D.getBoundingClientRect();
-            const mapRect = mapView.getBoundingClientRect();
-            const driverCarRect = driverCar.getBoundingClientRect();
+        // Use the enhanced animation system if available
+        if (window.mapAnimationController) {
+            return window.mapAnimationController.animateBookingSequence(window.enhancedMapManager);
+        } else {
+            // Fallback animation
+            const car3D = document.getElementById('car3D');
+            const mapContainer = document.querySelector('.map-container');
             
-            // Calculate the landing position
-            const deltaX = (mapRect.left + driverCarRect.left) - carRect.left;
-            const deltaY = (mapRect.top + driverCarRect.top) - carRect.top;
-            
-            // Apply animation
-            car3D.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(0.5)`;
-            car3D.style.transition = '1.5s ease-out';
-            
-            await this.delay(1500);
-            
-            // Hide the flying car and show the map car
-            car3D.style.opacity = '0';
-            driverCar.style.animation = 'bounceIn 0.5s ease-out';
+            if (car3D && mapContainer) {
+                const carRect = car3D.getBoundingClientRect();
+                const mapRect = mapContainer.getBoundingClientRect();
+                
+                const deltaX = mapRect.left + mapRect.width / 2 - carRect.left;
+                const deltaY = mapRect.top + mapRect.height / 2 - carRect.top;
+                
+                car3D.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(0.5)`;
+                car3D.style.transition = '1.5s ease-out';
+                
+                await this.delay(1500);
+                car3D.style.opacity = '0';
+            }
         }
     }
     

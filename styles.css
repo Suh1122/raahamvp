@@ -594,109 +594,158 @@ p {
 /* Map Container */
 .map-container {
     position: relative;
-    height: 80vh;
     border-radius: var(--radius-xl);
     overflow: hidden;
     box-shadow: var(--shadow-lg);
+    background: var(--light-gray);
 }
 
-.map-view {
+#googleMap {
     width: 100%;
     height: 100%;
-    position: relative;
+    border-radius: var(--radius-xl);
 }
 
-.map-bg {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, #E8F5E8 0%, #F0F8F0 50%, #E8F5E8 100%);
-    background-image: 
-        radial-gradient(circle at 25% 25%, rgba(45, 80, 22, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 75% 75%, rgba(139, 0, 0, 0.05) 0%, transparent 50%);
-    position: relative;
-}
-
-.map-overlay {
+/* Map Overlay UI */
+.map-overlay-ui {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-}
-
-.location-pin {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transform: translate(-50%, -100%);
-    animation: pinPulse 2s infinite;
-}
-
-.pin-icon {
-    font-size: 2rem;
-    margin-bottom: var(--spacing-xs);
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-}
-
-.pin-label {
-    background: var(--white);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--radius-sm);
-    font-size: 0.8rem;
-    font-weight: 500;
-    box-shadow: var(--shadow-sm);
-    white-space: nowrap;
-}
-
-.pickup-pin .pin-label {
-    background: var(--light-green);
-    color: var(--primary-green);
-}
-
-.destination-pin .pin-label {
-    background: var(--light-red);
-    color: var(--primary-red);
-}
-
-@keyframes pinPulse {
-    0%, 100% {
-        transform: translate(-50%, -100%) scale(1);
-    }
-    50% {
-        transform: translate(-50%, -100%) scale(1.1);
-    }
-}
-
-.route-line {
-    position: absolute;
-    top: 55%;
-    left: 35%;
-    width: 30%;
-    height: 2px;
-    background: linear-gradient(90deg, var(--primary-green), var(--primary-red));
-    border-radius: 1px;
-    opacity: 0.7;
-}
-
-.driver-car {
-    position: absolute;
-    font-size: 1.5rem;
-    transform: translate(-50%, -50%);
+    pointer-events: none;
     z-index: 10;
-    animation: carMove 3s infinite alternate ease-in-out;
 }
 
-@keyframes carMove {
-    0% {
-        transform: translate(-50%, -50%) translateX(-10px);
-    }
-    100% {
-        transform: translate(-50%, -50%) translateX(10px);
-    }
+.map-overlay-ui > * {
+    pointer-events: auto;
 }
 
-.map-controls {
+/* Ride Info Card */
+.ride-info-card {
+    position: absolute;
+    top: var(--spacing-md);
+    left: var(--spacing-md);
+    right: var(--spacing-md);
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all var(--transition-normal);
+}
+
+.ride-info-card.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ride-info-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.driver-avatar-small {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.driver-photo-small {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-green);
+}
+
+.driver-status {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--white);
+}
+
+.driver-status.online {
+    background: #28a745;
+}
+
+.driver-status.en_route {
+    background: var(--accent-gold);
+}
+
+.driver-status.arrived {
+    background: var(--primary-green);
+}
+
+.ride-info-details {
+    flex: 1;
+}
+
+.driver-name-small {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+    color: var(--text-dark);
+}
+
+.car-info-small {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin: 0;
+}
+
+.eta-display {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.eta-time-large {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-green);
+    line-height: 1;
+}
+
+.eta-label {
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+.ride-progress-mini {
+    margin-top: var(--spacing-sm);
+}
+
+.progress-bar-mini {
+    height: 4px;
+    background: var(--medium-gray);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: var(--spacing-xs);
+}
+
+.progress-fill-mini {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-green), var(--accent-gold));
+    width: 0%;
+    border-radius: 2px;
+    transition: width var(--transition-slow);
+}
+
+.progress-text {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    text-align: center;
+}
+
+/* Enhanced Map Controls */
+.map-controls-enhanced {
     position: absolute;
     top: var(--spacing-md);
     right: var(--spacing-md);
@@ -705,24 +754,143 @@ p {
     gap: var(--spacing-xs);
 }
 
-.map-control {
-    width: 40px;
-    height: 40px;
+.map-control-btn {
+    width: 44px;
+    height: 44px;
     background: var(--white);
     border: 1px solid var(--medium-gray);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
     transition: var(--transition-fast);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-md);
+    color: var(--text-dark);
 }
 
-.map-control:hover {
+.map-control-btn:hover {
     background: var(--light-green);
     border-color: var(--primary-green);
+    color: var(--primary-green);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+
+.map-control-btn.active {
+    background: var(--primary-green);
+    color: var(--white);
+    border-color: var(--primary-green);
+}
+
+.map-control-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Route Summary */
+.route-summary {
+    position: absolute;
+    bottom: var(--spacing-md);
+    left: var(--spacing-md);
+    right: var(--spacing-md);
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all var(--transition-normal);
+}
+
+.route-summary.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.route-summary-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.route-info {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.route-distance,
+.route-duration {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.route-distance::after {
+    content: " • ";
+    color: var(--text-light);
+    margin: 0 var(--spacing-xs);
+}
+
+.traffic-status {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.traffic-status.light {
+    background: var(--light-green);
+    color: var(--primary-green);
+}
+
+.traffic-status.moderate {
+    background: #FFF3CD;
+    color: #856404;
+}
+
+.traffic-status.heavy {
+    background: var(--light-red);
+    color: var(--primary-red);
+}
+
+/* Map Loading Overlay */
+.map-loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    border-radius: var(--radius-xl);
+}
+
+.map-loading-spinner {
+    text-align: center;
+}
+
+.spinner-ring {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--medium-gray);
+    border-top: 4px solid var(--primary-green);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto var(--spacing-md);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    color: var(--primary-green);
+    font-weight: 500;
+    font-size: 1rem;
 }
 
 /* Tracking Section */
@@ -1270,12 +1438,29 @@ p {
     }
     
     .map-container {
-        height: 400px;
+        height: 500px;
         order: -1;
     }
     
     .booking-panel {
         position: static;
+    }
+    
+    .ride-info-card {
+        left: var(--spacing-sm);
+        right: var(--spacing-sm);
+        top: var(--spacing-sm);
+    }
+    
+    .map-controls-enhanced {
+        right: var(--spacing-sm);
+        top: var(--spacing-sm);
+    }
+    
+    .route-summary {
+        left: var(--spacing-sm);
+        right: var(--spacing-sm);
+        bottom: var(--spacing-sm);
     }
 }
 
@@ -1359,6 +1544,53 @@ p {
     
     .map-container {
         height: 300px;
+    }
+    
+    .ride-info-card {
+        padding: var(--spacing-sm);
+    }
+    
+    .driver-photo-small {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .eta-time-large {
+        font-size: 1.2rem;
+    }
+    
+    .route-summary {
+        padding: var(--spacing-sm);
+    }
+    
+    .ride-info-header {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-xs);
+    }
+    
+    .eta-display {
+        text-align: center;
+    }
+    
+    .route-summary-content {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        text-align: center;
+    }
+    
+    .route-info {
+        justify-content: center;
+    }
+    
+    .map-control-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .map-control-btn svg {
+        width: 18px;
+        height: 18px;
     }
     
     .section-header .section-title {
