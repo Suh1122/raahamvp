@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raaha (راحة) - Your Trusted Ride</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1 class="logo-text">Raaha <span class="arabic-text">(راحة)</span></h1>
+                <p class="tagline" data-en="Your Trusted Ride" data-ar="رحلتك الموثوقة">Your Trusted Ride</p>
+            </div>
+            
+            <div class="nav-actions">
+                <div class="language-toggle">
+                    <button id="langToggle" class="lang-btn">
+                        <span class="lang-text">العربية</span>
+                    </button>
+                </div>
+                <button class="menu-btn" id="menuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="menu-content">
+            <a href="#home" data-en="Home" data-ar="الرئيسية">Home</a>
+            <a href="#services" data-en="Services" data-ar="الخدمات">Services</a>
+            <a href="#pricing" data-en="Pricing" data-ar="الأسعار">Pricing</a>
+            <a href="#about" data-en="About" data-ar="من نحن">About</a>
+            <a href="#contact" data-en="Contact" data-ar="اتصل بنا">Contact</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section with Booking Interface -->
+        <section class="hero-section" id="home">
+            <div class="hero-container">
+                <!-- Left Side - Booking Form -->
+                <div class="booking-panel">
+                    <div class="booking-header">
+                        <h2 class="booking-title" data-en="Book Your Ride" data-ar="احجز رحلتك">Book Your Ride</h2>
+                        <p class="booking-subtitle" data-en="Fixed prices, no surprises" data-ar="أسعار ثابتة، بلا مفاجآت">Fixed prices, no surprises</p>
+                    </div>
+
+                    <div class="booking-form">
+                        <!-- Location Inputs -->
+                        <div class="location-inputs">
+                            <div class="input-group">
+                                <div class="input-icon pickup-icon">📍</div>
+                                <input type="text" id="pickupLocation" class="location-input" 
+                                       data-placeholder-en="Pickup location" data-placeholder-ar="موقع الانطلاق"
+                                       placeholder="Pickup location">
+                                <div class="location-suggestions" id="pickupSuggestions"></div>
+                            </div>
+                            
+                            <div class="input-separator">
+                                <button class="swap-locations" id="swapBtn" title="Swap locations">⇅</button>
+                            </div>
+                            
+                            <div class="input-group">
+                                <div class="input-icon destination-icon">🎯</div>
+                                <input type="text" id="destinationLocation" class="location-input"
+                                       data-placeholder-en="Where to?" data-placeholder-ar="إلى أين؟"
+                                       placeholder="Where to?">
+                                <div class="location-suggestions" id="destinationSuggestions"></div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="quick-actions">
+                            <button class="quick-btn schedule-btn" data-en="Schedule" data-ar="جدولة">
+                                ⏰ <span>Schedule</span>
+                            </button>
+                            <button class="quick-btn favorites-btn" data-en="Favorites" data-ar="المفضلة">
+                                ⭐ <span>Favorites</span>
+                            </button>
+                        </div>
+
+                        <!-- Vehicle Selection -->
+                        <div class="vehicle-selection" id="vehicleSelection">
+                            <h3 class="section-title" data-en="Choose Your Ride" data-ar="اختر رحلتك">Choose Your Ride</h3>
+                            <div class="vehicle-options">
+                                <div class="vehicle-option active" data-type="economy">
+                                    <div class="vehicle-icon">🚗</div>
+                                    <div class="vehicle-info">
+                                        <span class="vehicle-name" data-en="Economy" data-ar="اقتصادية">Economy</span>
+                                        <span class="vehicle-desc" data-en="4 seats • AC" data-ar="4 مقاعد • مكيف">4 seats • AC</span>
+                                    </div>
+                                    <div class="vehicle-price">AED <span class="price-value">25</span></div>
+                                </div>
+                                
+                                <div class="vehicle-option" data-type="family">
+                                    <div class="vehicle-icon">🚙</div>
+                                    <div class="vehicle-info">
+                                        <span class="vehicle-name" data-en="Family" data-ar="عائلية">Family</span>
+                                        <span class="vehicle-desc" data-en="6 seats • Spacious" data-ar="6 مقاعد • واسعة">6 seats • Spacious</span>
+                                    </div>
+                                    <div class="vehicle-price">AED <span class="price-value">35</span></div>
+                                </div>
+                                
+                                <div class="vehicle-option" data-type="business">
+                                    <div class="vehicle-icon">🚘</div>
+                                    <div class="vehicle-info">
+                                        <span class="vehicle-name" data-en="Business" data-ar="أعمال">Business</span>
+                                        <span class="vehicle-desc" data-en="Premium • WiFi" data-ar="فاخرة • واي فاي">Premium • WiFi</span>
+                                    </div>
+                                    <div class="vehicle-price">AED <span class="price-value">45</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fare Breakdown -->
+                        <div class="fare-breakdown" id="fareBreakdown">
+                            <div class="fare-header">
+                                <h3 class="fare-title" data-en="Trip Details" data-ar="تفاصيل الرحلة">Trip Details</h3>
+                                <div class="no-surge-badge" data-en="No Dynamic Pricing" data-ar="لا توجد أسعار متغيرة">
+                                    ✓ No Dynamic Pricing
+                                </div>
+                            </div>
+                            
+                            <div class="fare-items">
+                                <div class="fare-item">
+                                    <span class="fare-label" data-en="Base Fare" data-ar="التعرفة الأساسية">Base Fare</span>
+                                    <span class="fare-value">AED <span id="baseFare">25.00</span></span>
+                                </div>
+                                <div class="fare-item">
+                                    <span class="fare-label" data-en="Distance" data-ar="المسافة">Distance</span>
+                                    <span class="fare-value"><span id="tripDistance">8.5</span> km</span>
+                                </div>
+                                <div class="fare-item">
+                                    <span class="fare-label" data-en="ETA" data-ar="الوقت المتوقع">ETA</span>
+                                    <span class="fare-value"><span id="tripETA">15</span> min</span>
+                                </div>
+                                <div class="fare-item salik-item">
+                                    <span class="fare-label" data-en="Salik (Toll)" data-ar="سالك (رسوم المرور)">Salik (Toll)</span>
+                                    <span class="fare-value">AED <span id="salikFare">4.00</span></span>
+                                </div>
+                                <div class="fare-item">
+                                    <span class="fare-label" data-en="VAT (5%)" data-ar="ضريبة القيمة المضافة (5%)">VAT (5%)</span>
+                                    <span class="fare-value">AED <span id="vatAmount">1.45</span></span>
+                                </div>
+                                <div class="fare-divider"></div>
+                                <div class="fare-item total-fare">
+                                    <span class="fare-label" data-en="Total" data-ar="المجموع">Total</span>
+                                    <span class="fare-value">AED <span id="totalFare">30.45</span></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Book Now Button -->
+                        <button class="book-btn" id="bookNowBtn">
+                            <span class="btn-text" data-en="Book Now" data-ar="احجز الآن">Book Now</span>
+                            <div class="btn-loading">
+                                <div class="loading-dots">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                            <div class="car-3d" id="car3D">🚗</div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Side - Map -->
+                <div class="map-container">
+                    <div class="map-view" id="mapView">
+                        <!-- Map Background -->
+                        <div class="map-bg">
+                            <div class="map-overlay">
+                                <div class="location-pin pickup-pin" style="top: 60%; left: 30%;">
+                                    <div class="pin-icon">📍</div>
+                                    <div class="pin-label" data-en="Pickup" data-ar="الانطلاق">Pickup</div>
+                                </div>
+                                <div class="location-pin destination-pin" style="top: 40%; left: 70%;">
+                                    <div class="pin-icon">🎯</div>
+                                    <div class="pin-label" data-en="Destination" data-ar="الوجهة">Destination</div>
+                                </div>
+                                <div class="route-line"></div>
+                                <div class="driver-car" id="driverCar" style="top: 55%; left: 25%;">🚗</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Map Controls -->
+                        <div class="map-controls">
+                            <button class="map-control zoom-in">+</button>
+                            <button class="map-control zoom-out">−</button>
+                            <button class="map-control my-location">📍</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ride Tracking Section (Hidden Initially) -->
+        <section class="tracking-section" id="trackingSection">
+            <div class="tracking-container">
+                <div class="tracking-header">
+                    <h2 class="tracking-title" data-en="Your Driver is on the way" data-ar="السائق في الطريق إليك">Your Driver is on the way</h2>
+                    <div class="tracking-status">
+                        <div class="status-dot"></div>
+                        <span class="status-text" data-en="Confirmed" data-ar="مؤكد">Confirmed</span>
+                    </div>
+                </div>
+
+                <div class="driver-info">
+                    <div class="driver-avatar">
+                        <img src="https://images.pexels.com/photos/1212984/pexels-photo-1212984.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1" alt="Driver" class="driver-photo">
+                        <div class="driver-rating">4.9</div>
+                    </div>
+                    <div class="driver-details">
+                        <h3 class="driver-name">Ahmed Al-Rashid</h3>
+                        <p class="driver-car">White Toyota Camry • ABC 123</p>
+                        <div class="driver-eta">
+                            <span data-en="Arriving in" data-ar="سيصل خلال">Arriving in</span>
+                            <span class="eta-time">3 min</span>
+                        </div>
+                    </div>
+                    <div class="driver-actions">
+                        <button class="action-btn call-btn" title="Call driver">📞</button>
+                        <button class="action-btn chat-btn" title="Chat with driver">💬</button>
+                    </div>
+                </div>
+
+                <div class="trip-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="progress-steps">
+                        <div class="step active">
+                            <div class="step-icon">✓</div>
+                            <span class="step-label" data-en="Booked" data-ar="محجوز">Booked</span>
+                        </div>
+                        <div class="step active">
+                            <div class="step-icon">🚗</div>
+                            <span class="step-label" data-en="On the way" data-ar="في الطريق">On the way</span>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">📍</div>
+                            <span class="step-label" data-en="Pickup" data-ar="الاستلام">Pickup</span>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">🎯</div>
+                            <span class="step-label" data-en="Destination" data-ar="الوجهة">Destination</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="cancel-btn" data-en="Cancel Ride" data-ar="إلغاء الرحلة">Cancel Ride</button>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section" id="services">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title" data-en="Why Choose Raaha?" data-ar="لماذا تختار راحة؟">Why Choose Raaha?</h2>
+                    <p class="section-subtitle" data-en="Experience the difference with transparent, affordable rides" data-ar="اختبر الفرق مع الرحلات الشفافة والميسورة التكلفة">Experience the difference with transparent, affordable rides</p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">💰</div>
+                        <h3 class="feature-title" data-en="Fixed Pricing" data-ar="أسعار ثابتة">Fixed Pricing</h3>
+                        <p class="feature-desc" data-en="No surge pricing. Know your fare upfront with government-approved rates." data-ar="لا توجد أسعار متغيرة. اعرف تعرفتك مسبقاً بأسعار معتمدة من الحكومة.">No surge pricing. Know your fare upfront with government-approved rates.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3 class="feature-title" data-en="Trusted Drivers" data-ar="سائقون موثوقون">Trusted Drivers</h3>
+                        <p class="feature-desc" data-en="All drivers are verified and licensed with the UAE transport authorities." data-ar="جميع السائقين معتمدون ومرخصون من سلطات النقل في دولة الإمارات.">All drivers are verified and licensed with the UAE transport authorities.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3 class="feature-title" data-en="Quick Booking" data-ar="حجز سريع">Quick Booking</h3>
+                        <p class="feature-desc" data-en="Book your ride in seconds with our intuitive interface and smart location detection." data-ar="احجز رحلتك في ثوانٍ مع واجهتنا البديهية واكتشاف المواقع الذكي.">Book your ride in seconds with our intuitive interface and smart location detection.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3 class="feature-title" data-en="Real-time Tracking" data-ar="تتبع مباشر">Real-time Tracking</h3>
+                        <p class="feature-desc" data-en="Track your driver's location and get accurate arrival times throughout your journey." data-ar="تتبع موقع السائق واحصل على أوقات وصول دقيقة طوال رحلتك.">Track your driver's location and get accurate arrival times throughout your journey.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">💳</div>
+                        <h3 class="feature-title" data-en="Multiple Payments" data-ar="طرق دفع متعددة">Multiple Payments</h3>
+                        <p class="feature-desc" data-en="Pay with cash, card, or digital wallets. Choose what's convenient for you." data-ar="ادفع نقداً أو بالبطاقة أو المحافظ الرقمية. اختر ما يناسبك.">Pay with cash, card, or digital wallets. Choose what's convenient for you.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3 class="feature-title" data-en="UAE Focused" data-ar="متخصص في الإمارات">UAE Focused</h3>
+                        <p class="feature-desc" data-en="Built specifically for the UAE market with local knowledge and preferences." data-ar="مبني خصيصاً للسوق الإماراتي بمعرفة وتفضيلات محلية.">Built specifically for the UAE market with local knowledge and preferences.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="pricing-section" id="pricing">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title" data-en="Transparent Pricing" data-ar="أسعار شفافة">Transparent Pricing</h2>
+                    <p class="section-subtitle" data-en="All prices include VAT and are based on government-approved rates" data-ar="جميع الأسعار تشمل ضريبة القيمة المضافة وتستند إلى أسعار معتمدة من الحكومة">All prices include VAT and are based on government-approved rates</p>
+                </div>
+
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <h3 class="pricing-title" data-en="Economy" data-ar="اقتصادية">Economy</h3>
+                            <div class="pricing-icon">🚗</div>
+                        </div>
+                        <div class="pricing-details">
+                            <div class="price">
+                                <span class="price-amount">AED 2.50</span>
+                                <span class="price-unit" data-en="per km" data-ar="لكل كم">per km</span>
+                            </div>
+                            <ul class="pricing-features">
+                                <li data-en="4 passengers" data-ar="4 راكب">4 passengers</li>
+                                <li data-en="Air conditioning" data-ar="مكيف هواء">Air conditioning</li>
+                                <li data-en="Standard comfort" data-ar="راحة قياسية">Standard comfort</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="pricing-card featured">
+                        <div class="pricing-badge" data-en="Most Popular" data-ar="الأكثر شعبية">Most Popular</div>
+                        <div class="pricing-header">
+                            <h3 class="pricing-title" data-en="Family" data-ar="عائلية">Family</h3>
+                            <div class="pricing-icon">🚙</div>
+                        </div>
+                        <div class="pricing-details">
+                            <div class="price">
+                                <span class="price-amount">AED 3.00</span>
+                                <span class="price-unit" data-en="per km" data-ar="لكل كم">per km</span>
+                            </div>
+                            <ul class="pricing-features">
+                                <li data-en="6 passengers" data-ar="6 راكب">6 passengers</li>
+                                <li data-en="Extra luggage space" data-ar="مساحة أمتعة إضافية">Extra luggage space</li>
+                                <li data-en="Premium comfort" data-ar="راحة متميزة">Premium comfort</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <h3 class="pricing-title" data-en="Business" data-ar="أعمال">Business</h3>
+                            <div class="pricing-icon">🚘</div>
+                        </div>
+                        <div class="pricing-details">
+                            <div class="price">
+                                <span class="price-amount">AED 4.00</span>
+                                <span class="price-unit" data-en="per km" data-ar="لكل كم">per km</span>
+                            </div>
+                            <ul class="pricing-features">
+                                <li data-en="Luxury vehicles" data-ar="مركبات فاخرة">Luxury vehicles</li>
+                                <li data-en="Professional drivers" data-ar="سائقون محترفون">Professional drivers</li>
+                                <li data-en="WiFi & amenities" data-ar="واي فاي ووسائل راحة">WiFi & amenities</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pricing-note">
+                    <p data-en="* Base fare starts from AED 10. Additional charges may apply for tolls (Salik) and waiting time." data-ar="* التعرفة الأساسية تبدأ من 10 درهم إماراتي. قد تطبق رسوم إضافية للرسوم (سالك) ووقت الانتظار.">* Base fare starts from AED 10. Additional charges may apply for tolls (Salik) and waiting time.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <h3>Raaha <span class="arabic-text">(راحة)</span></h3>
+                        <p data-en="Your trusted ride in the UAE" data-ar="رحلتك الموثوقة في دولة الإمارات">Your trusted ride in the UAE</p>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-en="Services" data-ar="الخدمات">Services</h4>
+                    <ul>
+                        <li><a href="#" data-en="Instant Booking" data-ar="حجز فوري">Instant Booking</a></li>
+                        <li><a href="#" data-en="Scheduled Rides" data-ar="رحلات مجدولة">Scheduled Rides</a></li>
+                        <li><a href="#" data-en="Airport Transfer" data-ar="نقل المطار">Airport Transfer</a></li>
+                        <li><a href="#" data-en="Business Travel" data-ar="سفر أعمال">Business Travel</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-en="Support" data-ar="الدعم">Support</h4>
+                    <ul>
+                        <li><a href="#" data-en="Help Center" data-ar="مركز المساعدة">Help Center</a></li>
+                        <li><a href="#" data-en="Contact Us" data-ar="اتصل بنا">Contact Us</a></li>
+                        <li><a href="#" data-en="Safety" data-ar="السلامة">Safety</a></li>
+                        <li><a href="#" data-en="Terms & Conditions" data-ar="الشروط والأحكام">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-en="Connect" data-ar="تواصل">Connect</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘</a>
+                        <a href="#" class="social-link">📷</a>
+                        <a href="#" class="social-link">🐦</a>
+                        <a href="#" class="social-link">📧</a>
+                    </div>
+                    <div class="app-links">
+                        <a href="#" class="app-link" data-en="Download for iOS" data-ar="تحميل للآيفون">📱 iOS App</a>
+                        <a href="#" class="app-link" data-en="Download for Android" data-ar="تحميل لأندرويد">🤖 Android App</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Raaha. <span data-en="All rights reserved." data-ar="جميع الحقوق محفوظة.">All rights reserved.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="language.js"></script>
+    <script src="animations.js"></script>
+    <script src="map.js"></script>
+    <script src="script.js"></script>
